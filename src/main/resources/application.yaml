@@ -1,0 +1,7 @@
+spring:
+  devtools:
+    restart:
+      log-condition-evaluation-delta: false
+
+server:
+  port: 9001
