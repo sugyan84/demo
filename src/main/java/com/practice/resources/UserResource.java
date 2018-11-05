@@ -1,6 +1,7 @@
 package com.practice.resources;
 
 import java.util.Base64;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,7 +32,7 @@ public class UserResource {
     @RequestMapping(value = {"/test", "/trial"},
                     method = RequestMethod.GET,
                     produces = MediaType.TEXT_PLAIN )
-    public String test() {
+    public String test(HttpServletRequest request) {
         counter = counter + 1;
         DemoConsumer consumer = new DemoConsumer();
 
@@ -40,6 +41,8 @@ public class UserResource {
         retVal.append("Developer Name: |"+env.getProperty("developer.name")+"|");
         retVal.append("\n");
         retVal.append("Contact: |"+ developerContact +"|");
+
+        System.out.println("IP Address: "+request.getRemoteAddr());
 
         return retVal.toString();
     }
