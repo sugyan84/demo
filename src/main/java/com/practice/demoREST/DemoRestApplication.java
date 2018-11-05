@@ -1,5 +1,6 @@
 package com.practice.demoREST;
 
+import java.util.Base64;
 import java.util.Collections;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
@@ -22,6 +23,8 @@ public class DemoRestApplication {
         app.setDefaultProperties(Collections.singletonMap("server.port", "8081"));
         app.setAdditionalProfiles("dev");
         app.run(args);
+
+        System.out.println("Base6 encode: "+(Base64.getEncoder().encodeToString("username:password".getBytes())));
 
         //System.exit(SpringApplication.exit(SpringApplication.run(DemoRestApplication.class, args)));
     }

@@ -1,9 +1,12 @@
 package com.practice.resources;
 
+import java.util.Base64;
 import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,8 +22,8 @@ public class UserResource {
     @Value("${developer.name}")
     private String developerName;
 
-    @Value("${developer.rollNo}")
-    private String developerRollNo;
+    @Value("${developer.contact}")
+    private String developerContact;
 
     @Autowired
     private Environment env;
@@ -34,10 +37,33 @@ public class UserResource {
 
         StringBuffer retVal = new StringBuffer();
 
-        retVal.append("Value using Environment is |"+env.getProperty("developer.rollNo")+"|");
+        retVal.append("Developer Name: |"+env.getProperty("developer.name")+"|");
         retVal.append("\n");
-        retVal.append("Value using @Value is |"+developerRollNo+"|");
+        retVal.append("Contact: |"+ developerContact +"|");
 
         return retVal.toString();
+    }
+
+
+    @GetMapping("/basic")
+    public String basicAuth(@RequestHeader("Authorization") String header){
+
+        String[] splitHeader = header.split(" ");
+
+        byte[] arr = Base64.getDecoder().decode(header);
+
+        String decodedStr = String.valueOf(arr);
+
+        header = splitHeader[1];
+
+        System.out.println(header);
+
+        StringBuffer sbfr = new StringBuffer();
+        sbfr.append("Header received=|"+header);
+        sbfr.append("\n");
+        sbfr.append("Decoding to:|"+ decodedStr);
+        sbfr.append("\n");
+
+        return sbfr.toString();
     }
 }
