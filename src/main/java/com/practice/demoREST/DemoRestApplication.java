@@ -24,7 +24,7 @@ public class DemoRestApplication {
         app.setAdditionalProfiles("dev");
         app.run(args);
 
-        System.out.println("Base6 encode: "+(Base64.getEncoder().encodeToString("username:password".getBytes())));
+        System.out.println("Base64 encode: "+(Base64.getEncoder().encodeToString("username:password".getBytes())));
 
         //System.exit(SpringApplication.exit(SpringApplication.run(DemoRestApplication.class, args)));
     }
